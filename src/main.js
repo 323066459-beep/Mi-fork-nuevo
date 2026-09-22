@@ -24,11 +24,15 @@ function mostrarProductos(lista) {
     .join("");
 }
 
-const pedido = [];
+const pedido = JSON.parse(localStorage.getItem("pedido")) || [];
 
 const listaPedido = document.getElementById("lista-pedido");
 const totalEl = document.getElementById("total");
 const btnVaciar = document.getElementById("btn-vaciar");
+
+function guardarPedido() {
+  localStorage.setItem("pedido", JSON.stringify(pedido));
+}
 
 function mostrarPedido() {
   listaPedido.innerHTML = pedido
@@ -44,6 +48,8 @@ function mostrarPedido() {
 
   const total = pedido.reduce((suma, p) => suma + p.precio, 0);
   totalEl.textContent = `Total: $${total}`;
+
+  guardarPedido(); // 👈 EXTRA: cada vez que se redibuja, se guarda
 }
 
 catalogo.addEventListener("click", (evento) => {
@@ -82,3 +88,4 @@ filtros.addEventListener("click", (evento) => {
 });
 
 mostrarProductos(productos);
+mostrarPedido();
