@@ -24,10 +24,6 @@ function mostrarProductos(lista) {
     .join("");
 }
 
-mostrarProductos(productos);
-
-
-
 const pedido = [];
 
 const listaPedido = document.getElementById("lista-pedido");
@@ -62,6 +58,27 @@ catalogo.addEventListener("click", (evento) => {
 btnVaciar.addEventListener("click", () => {
   pedido.length = 0;
   mostrarPedido();
+});
+
+const filtros = document.getElementById("filtros");
+
+filtros.addEventListener("click", (evento) => {
+  const boton = evento.target.closest("button[data-categoria]");
+  if (!boton) return;
+
+  const categoria = boton.dataset.categoria;
+  const lista = categoria === "Todos"
+    ? productos
+    : productos.filter((p) => p.categoria === categoria);
+
+  mostrarProductos(lista);
+
+  document.querySelectorAll(".filtro-btn").forEach((btn) => {
+    btn.classList.remove("bg-blue-600", "text-white");
+    btn.classList.add("bg-white", "text-gray-800", "shadow");
+  });
+  boton.classList.remove("bg-white", "text-gray-800", "shadow");
+  boton.classList.add("bg-blue-600", "text-white");
 });
 
 mostrarProductos(productos);
