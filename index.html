@@ -1,22 +1,26 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Práctica web — Informática III</title>
-  </head>
-  <body class="bg-gray-100 text-gray-800">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller Mecánico Morales</title>
+  
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
 
-    <!-- PARTE A: comprobación de Tailwind.
-         Si esta barra se ve azul con texto blanco, Tailwind está funcionando.
-         Bórrala cuando termines la Parte A. -->
-    <div class="bg-blue-600 text-white text-center p-4 font-semibold">
-      ✅ Si ves esta barra azul, Tailwind está funcionando
-    </div>
+  <header class="bg-slate-800 text-white p-6 text-center">
+    <h1 class="text-3xl font-bold">Taller Mecánico Morales</h1>
+    <p class="text-sm text-slate-300 mt-1">Tu carro, en buenas manos desde 2015</p>
+  </header>
 
-    <!-- EJERCICIO 1: construye aquí tu página (header, main con #catalogo, footer).
-         Las instrucciones están en el README. -->
+  <main class="p-6">
+    <div id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+  </main>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  <footer class="bg-slate-800 text-slate-300 text-center p-4 mt-6">
+    <p>Equipo Lineal — [Code Warriors]</p>
+  </footer>
+
+</body>
 </html>
