@@ -14,9 +14,20 @@
     <p class="text-sm text-slate-300 mt-1">Tu carro, en buenas manos desde 2015</p>
   </header>
 
-  <main class="p-6">
-    <div id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-  </main>
+ 
+    <main class="p-6 flex flex-col lg:flex-row gap-6">
+  <div id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 flex-1"></div>
+
+  <aside class="bg-white rounded-lg shadow p-4 w-full lg:w-72 h-fit">
+    <h2 class="text-lg font-bold mb-3">Mi pedido</h2>
+    <ul id="lista-pedido" class="space-y-2 text-sm"></ul>
+    <p id="total" class="text-xl font-bold mt-4">Total: $0</p>
+    <button id="btn-vaciar" class="mt-4 w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+      Vaciar pedido
+    </button>
+  </aside>
+</main>
+  
 
   <footer class="bg-slate-800 text-slate-300 text-center p-4 mt-6">
     <p>Equipo Lineal — [Code Warriors]</p>

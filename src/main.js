@@ -25,3 +25,43 @@ function mostrarProductos(lista) {
 }
 
 mostrarProductos(productos);
+
+
+
+const pedido = [];
+
+const listaPedido = document.getElementById("lista-pedido");
+const totalEl = document.getElementById("total");
+const btnVaciar = document.getElementById("btn-vaciar");
+
+function mostrarPedido() {
+  listaPedido.innerHTML = pedido
+    .map(
+      (p) => `
+      <li class="flex justify-between">
+        <span>${p.nombre}</span>
+        <span>$${p.precio}</span>
+      </li>
+    `
+    )
+    .join("");
+
+  const total = pedido.reduce((suma, p) => suma + p.precio, 0);
+  totalEl.textContent = `Total: $${total}`;
+}
+
+catalogo.addEventListener("click", (evento) => {
+  const boton = evento.target.closest("button[data-id]");
+  if (!boton) return;
+  const id = Number(boton.dataset.id);
+  const producto = productos.find((p) => p.id === id);
+  pedido.push(producto);
+  mostrarPedido();
+});
+
+btnVaciar.addEventListener("click", () => {
+  pedido.length = 0;
+  mostrarPedido();
+});
+
+mostrarProductos(productos);
