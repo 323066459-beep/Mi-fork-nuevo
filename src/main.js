@@ -26,8 +26,29 @@ function mostrarProductos(lista) {
 
 const pedido = [];
 
+// Ejercicio 7: guardar y cargar pedidos registrados en localStorage
+const CLAVE_PEDIDOS = "pedidosRegistrados";
+
+function cargarPedidos() {
+  try {
+    const guardado = localStorage.getItem(CLAVE_PEDIDOS);
+    const datos = guardado ? JSON.parse(guardado) : [];
+    return Array.isArray(datos) ? datos : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function guardarPedidos() {
+  try {
+    localStorage.setItem(CLAVE_PEDIDOS, JSON.stringify(pedidosRegistrados));
+  } catch (error) {
+    console.error("No se pudieron guardar los pedidos:", error);
+  }
+}
+
 // Ejercicio 6: pedidos registrados, estados y colores
-const pedidosRegistrados = [];
+const pedidosRegistrados = cargarPedidos();
 const ESTADOS = ["Pendiente", "En preparación", "Entregado"];
 
 const COLORES = {
@@ -36,7 +57,11 @@ const COLORES = {
   "Entregado": "bg-green-100 border-green-400",
 };
 
+// Ejercicio 7: filtro por estado
+let filtroEstado = "Todos";
+
 const contenedorPedidos = document.getElementById("pedidos-registrados");
+const contenedorFiltrosEstado = document.getElementById("filtros-estado");
 
 const listaPedido = document.getElementById("lista-pedido");
 const totalEl = document.getElementById("total");
@@ -159,9 +184,48 @@ inputNombre.addEventListener("input", validarNombre);
 inputTelefono.addEventListener("input", validarTelefono);
 inputCorreo.addEventListener("input", validarCorreo);
 
+// Ejercicio 7: botones de filtro por estado, con contador
+function mostrarFiltrosEstado() {
+  const opciones = ["Todos", ...ESTADOS];
+
+  contenedorFiltrosEstado.innerHTML = opciones
+    .map((estado) => {
+      const cantidad =
+        estado === "Todos"
+          ? pedidosRegistrados.length
+          : pedidosRegistrados.filter((p) => p.estado === estado).length;
+
+      const clases =
+        estado === filtroEstado
+          ? "bg-blue-600 text-white"
+          : "bg-white text-gray-800 shadow";
+
+      return `<button data-estado="${estado}" class="px-4 py-2 rounded-lg ${clases}">
+        ${estado} (${cantidad})
+      </button>`;
+    })
+    .join("");
+}
+
 // Ejercicio 6: dibuja una tarjeta por pedido registrado
 function mostrarPedidosRegistrados() {
-  contenedorPedidos.innerHTML = pedidosRegistrados
+  mostrarFiltrosEstado();
+
+  const lista =
+    filtroEstado === "Todos"
+      ? pedidosRegistrados
+      : pedidosRegistrados.filter((p) => p.estado === filtroEstado);
+
+  if (lista.length === 0) {
+    contenedorPedidos.innerHTML = `<p class="text-gray-500">${
+      filtroEstado === "Todos"
+        ? "Todavía no hay pedidos registrados."
+        : "No hay pedidos en este estado."
+    }</p>`;
+    return;
+  }
+
+  contenedorPedidos.innerHTML = lista
     .map(
       (p) => `
       <div class="border-2 rounded-lg p-4 ${COLORES[p.estado]}">
@@ -210,6 +274,7 @@ formCliente.addEventListener("submit", (evento) => {
   };
 
   pedidosRegistrados.push(nuevoPedido);
+  guardarPedidos();
 
   pedido.length = 0;
   mostrarPedido();
@@ -232,7 +297,18 @@ contenedorPedidos.addEventListener("click", (evento) => {
   if (posicion < ESTADOS.length - 1) {
     registrado.estado = ESTADOS[posicion + 1];
   }
+  guardarPedidos();
+  mostrarPedidosRegistrados();
+});
+
+// Ejercicio 7: clic en los botones de filtro por estado
+contenedorFiltrosEstado.addEventListener("click", (evento) => {
+  const boton = evento.target.closest("button[data-estado]");
+  if (!boton) return;
+
+  filtroEstado = boton.dataset.estado;
   mostrarPedidosRegistrados();
 });
 
 mostrarProductos(productos);
+mostrarPedidosRegistrados();
