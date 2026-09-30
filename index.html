@@ -1,22 +1,78 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Práctica web — Informática III</title>
-  </head>
-  <body class="bg-gray-100 text-gray-800">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller Mecánico Morales</title>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
 
-    <!-- PARTE A: comprobación de Tailwind.
-         Si esta barra se ve azul con texto blanco, Tailwind está funcionando.
-         Bórrala cuando termines la Parte A. -->
-    <div class="bg-blue-600 text-white text-center p-4 font-semibold">
-      ✅ Si ves esta barra azul, Tailwind está funcionando
+  <header class="bg-slate-800 text-white p-6 text-center">
+    <h1 class="text-3xl font-bold">Taller Mecánico Morales</h1>
+    <p class="text-sm text-slate-300 mt-1">Tu carro, en buenas manos desde 2015</p>
+  </header>
+
+  <main class="p-6 flex flex-col lg:flex-row gap-6">
+    <div class="flex-1">
+
+      <div id="filtros" class="flex flex-wrap gap-2 mb-4">
+        <button data-categoria="Todos" class="filtro-btn px-4 py-2 rounded-lg bg-blue-600 text-white">Todos</button>
+        <button data-categoria="Mantenimiento" class="filtro-btn px-4 py-2 rounded-lg bg-white text-gray-800 shadow">Mantenimiento</button>
+        <button data-categoria="Diagnóstico" class="filtro-btn px-4 py-2 rounded-lg bg-white text-gray-800 shadow">Diagnóstico</button>
+        <button data-categoria="Frenos" class="filtro-btn px-4 py-2 rounded-lg bg-white text-gray-800 shadow">Frenos</button>
+      </div>
+
+      <div id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+
+      <!-- Ejercicio 6 -->
+      <section class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Pedidos registrados</h2>
+        <div id="pedidos-registrados" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </section>
+
     </div>
 
-    <!-- EJERCICIO 1: construye aquí tu página (header, main con #catalogo, footer).
-         Las instrucciones están en el README. -->
+    <aside class="bg-white rounded-lg shadow p-4 w-full lg:w-72 h-fit">
+      <h2 class="text-lg font-bold mb-3">Mi pedido</h2>
+      <ul id="lista-pedido" class="space-y-2 text-sm"></ul>
+      <p id="total" class="text-xl font-bold mt-4">Total: $0</p>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+      <button id="btn-vaciar" class="mt-4 w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+        Vaciar pedido
+      </button>
+
+      <form id="form-cliente" class="mt-4 space-y-3" novalidate>
+        <div>
+          <label for="nombre" class="block text-sm font-medium">Nombre</label>
+          <input id="nombre" type="text" class="w-full border rounded px-3 py-2" />
+          <p id="error-nombre" class="text-sm text-red-600 hidden"></p>
+        </div>
+
+        <div>
+          <label for="telefono" class="block text-sm font-medium">Teléfono</label>
+          <input id="telefono" type="text" class="w-full border rounded px-3 py-2" />
+          <p id="error-telefono" class="text-sm text-red-600 hidden"></p>
+        </div>
+
+        <div>
+          <label for="correo" class="block text-sm font-medium">Correo</label>
+          <input id="correo" type="text" class="w-full border rounded px-3 py-2" />
+          <p id="error-correo" class="text-sm text-red-600 hidden"></p>
+        </div>
+
+        <p id="error-pedido" class="text-sm text-red-600 hidden"></p>
+
+        <button type="submit" class="w-full bg-blue-600 text-white rounded px-3 py-2">
+          Confirmar pedido
+        </button>
+      </form>
+    </aside>
+  </main>
+
+  <footer class="bg-slate-800 text-slate-300 text-center p-4 mt-6">
+    <p>Equipo Lineal — [Code Warriors]</p>
+  </footer>
+
+</body>
 </html>
